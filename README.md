@@ -1,0 +1,12 @@
+TODO:
+- Describe instruction of usage
+- Create state saving
+- Create locales
+- Make it userfriendly
+- Implement trascriptions
+- Send requests
+- Images in response
+- Create tests
+- Configure sonar-cloud scanning
+- Create Dockerfile
+- Configure github actions to deploy on docker-hub

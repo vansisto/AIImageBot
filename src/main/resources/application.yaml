@@ -1,0 +1,6 @@
+app:
+  openai:
+    token:
+  telegram:
+    bot:
+      token:
