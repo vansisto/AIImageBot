@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 @Component
 public class CommandStrategyFactory {
-    private final Map<Commands, CommandStrategy> commandStrategies = new HashMap<>();
+    private final Map<Commands, CommandStrategy> commandStrategies = new EnumMap<>(Commands.class);
 
     @Autowired
     public CommandStrategyFactory(@Qualifier("startCommand") CommandStrategy startCommand,

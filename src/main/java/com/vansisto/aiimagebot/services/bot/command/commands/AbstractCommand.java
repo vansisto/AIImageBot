@@ -1,6 +1,5 @@
 package com.vansisto.aiimagebot.services.bot.command.commands;
 
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.vansisto.aiimagebot.services.bot.command.CommandStrategy;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,4 @@ public abstract class AbstractCommand implements CommandStrategy {
     private Long getMessageId() {
         return update.message().chat().id();
     }
-
-    @Override
-    public abstract void execute(TelegramBot bot, Update update);
 }
