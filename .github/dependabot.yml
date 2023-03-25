@@ -1,6 +1,17 @@
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: maven
+    directory: "/"
     schedule:
-      interval: "weekly"
+      interval: weekly
+    ignore:
+      # ignore Maven APIs/SPIs
+      - dependency-name: org.apache.maven:*
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
