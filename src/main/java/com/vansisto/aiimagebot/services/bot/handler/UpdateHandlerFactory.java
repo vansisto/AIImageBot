@@ -1,10 +1,7 @@
 package com.vansisto.aiimagebot.services.bot.handler;
 
 import com.pengrad.telegrambot.model.Update;
-import com.vansisto.aiimagebot.services.bot.handler.handlers.CallbackQueryHandler;
-import com.vansisto.aiimagebot.services.bot.handler.handlers.CommandHandler;
-import com.vansisto.aiimagebot.services.bot.handler.handlers.MessageHandler;
-import com.vansisto.aiimagebot.services.bot.handler.handlers.VoiceHandler;
+import com.vansisto.aiimagebot.services.bot.handler.handlers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +13,18 @@ public class UpdateHandlerFactory {
     private final List<UpdateHandler> handlers;
 
     @Autowired
-    public UpdateHandlerFactory(CallbackQueryHandler callbackQueryHandler,
+    public UpdateHandlerFactory(ApiKeyAnswerHandler apiKeyAnswerHandler,
+                                CallbackQueryHandler callbackQueryHandler,
                                 MessageHandler messageHandler,
                                 CommandHandler commandHandler,
                                 VoiceHandler voiceHandler) {
         this.handlers = Arrays.asList(
+                voiceHandler,
                 callbackQueryHandler,
-                messageHandler,
                 commandHandler,
-                voiceHandler);
+                apiKeyAnswerHandler,
+                messageHandler
+        );
     }
 
     public UpdateHandler getFromUpdate(Update update) {
