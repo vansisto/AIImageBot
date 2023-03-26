@@ -4,33 +4,28 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.vansisto.aiimagebot.services.bot.handler.AbstractHandler;
 import com.vansisto.aiimagebot.services.bot.handler.UpdateHandler;
+import com.vansisto.aiimagebot.services.settings.UserSetting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 import static com.vansisto.aiimagebot.services.UpdateUtil.getChatId;
 import static com.vansisto.aiimagebot.services.UpdateUtil.getMessageText;
+import static com.vansisto.aiimagebot.services.settings.UpdateType.MESSAGE;
 
 @Service
 @RequiredArgsConstructor
-public class MessageHandler extends AbstractHandler implements UpdateHandler {
+public class ApiKeyAnswerHandler extends AbstractHandler implements UpdateHandler {
     @Override
     public void handle(Update update) {
-        String messageText = getMessageText(update);
-        long chatId = getChatId(update);
-        settingsService.getOrInitSetting(update);
-        proceed(messageText, chatId);
+        UserSetting setting = settingsService.getOrInitSetting(update);
+        setting.setUpdateType(MESSAGE);
+        setting.setOpenAiApiKey(getMessageText(update));
+        settingsService.save(setting);
+        bot.execute(new SendMessage(getChatId(update), "Api key has been set up"));
     }
 
     @Override
     public boolean canHandle(Update update) {
-        return Objects.nonNull(update.message())
-                && Objects.nonNull(update.message().text())
-                && !update.message().text().startsWith("/");
-    }
-
-    private void proceed(String messageText, long chatId) {
-        bot.execute(new SendMessage(chatId, messageText));
+        return settingsService.isAnswer(update);
     }
 }
