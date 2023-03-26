@@ -2,6 +2,8 @@ package com.vansisto.aiimagebot.services.bot.handler;
 
 import com.pengrad.telegrambot.model.Update;
 import com.vansisto.aiimagebot.services.bot.handler.handlers.*;
+import com.vansisto.aiimagebot.services.bot.handler.handlers.answers.ApiKeyAnswerHandler;
+import com.vansisto.aiimagebot.services.bot.handler.handlers.answers.PictureHandlerAnswerHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ public class UpdateHandlerFactory {
 
     @Autowired
     public UpdateHandlerFactory(ApiKeyAnswerHandler apiKeyAnswerHandler,
+                                PictureHandlerAnswerHandler pictureHandlerAnswerHandler,
                                 CallbackQueryHandler callbackQueryHandler,
                                 MessageHandler messageHandler,
                                 CommandHandler commandHandler,
@@ -23,6 +26,7 @@ public class UpdateHandlerFactory {
                 callbackQueryHandler,
                 commandHandler,
                 apiKeyAnswerHandler,
+                pictureHandlerAnswerHandler,
                 messageHandler
         );
     }

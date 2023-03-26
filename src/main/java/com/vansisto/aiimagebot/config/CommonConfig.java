@@ -3,8 +3,10 @@ package com.vansisto.aiimagebot.config;
 import com.pengrad.telegrambot.TelegramBot;
 import com.vansisto.aiimagebot.services.settings.KeySetting;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -26,6 +28,14 @@ public class CommonConfig {
         template.setConnectionFactory(connectionFactory);
         serializeTemplate(serializer, template);
         return template;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("i18n/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
     private static void serializeTemplate(StringRedisSerializer serializer, RedisTemplate<String, KeySetting> template) {
