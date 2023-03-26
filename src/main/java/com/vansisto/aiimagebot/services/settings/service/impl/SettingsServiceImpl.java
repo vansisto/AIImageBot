@@ -16,7 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.vansisto.aiimagebot.services.UpdateUtil.getUserId;
-import static com.vansisto.aiimagebot.services.settings.UpdateType.ANSWER;
+import static com.vansisto.aiimagebot.services.settings.UpdateType.API_KEY_ANSWER;
+import static com.vansisto.aiimagebot.services.settings.UpdateType.PICTURES_COUNT_ANSWER;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Service
@@ -68,9 +69,15 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
-    public boolean isAnswer(Update update) {
+    public boolean isApiKeyAnswer(Update update) {
         UpdateType updateType = usersCache.getUpdateType(update);
-        return Objects.nonNull(updateType) && updateType.equals(ANSWER);
+        return Objects.nonNull(updateType) && updateType.equals(API_KEY_ANSWER);
+    }
+
+    @Override
+    public boolean isPicturesCountAnswer(Update update) {
+        UpdateType updateType = usersCache.getUpdateType(update);
+        return Objects.nonNull(updateType) && updateType.equals(PICTURES_COUNT_ANSWER);
     }
 
     @Override
@@ -78,6 +85,11 @@ public class SettingsServiceImpl implements SettingsService {
         UserSetting setting = usersCache.getByUserId(getUserId(update));
         initIfAbsent(update, setting);
         return setting;
+    }
+
+    @Override
+    public Locale getLocale(Update update) {
+        return getOrInitSetting(update).getLocale();
     }
 
     private void initIfAbsent(Update update, UserSetting setting) {
