@@ -9,6 +9,8 @@ app:
     bot:
       token:
 spring:
+  messages:
+    encoding: UTF-8
   data:
     redis:
       database: 0

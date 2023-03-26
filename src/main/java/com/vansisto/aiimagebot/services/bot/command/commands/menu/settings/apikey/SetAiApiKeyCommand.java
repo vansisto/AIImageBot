@@ -8,21 +8,20 @@ import com.vansisto.aiimagebot.services.settings.UserSetting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.vansisto.aiimagebot.services.settings.UpdateType.ANSWER;
+import static com.vansisto.aiimagebot.services.settings.UpdateType.API_KEY_ANSWER;
 
 @Component
 @RequiredArgsConstructor
 public class SetAiApiKeyCommand extends AbstractCommand {
+
+    private static final String PASTE_MESSAGE_PROPERTY_KEY = "commands.menu.settings.apiKey.setRequest";
     @Override
     public void execute(TelegramBot bot, Update update) {
         long chatId = getChatId(update);
         UserSetting setting = getSetting(update);
-        setting.setUpdateType(ANSWER);
+        setting.setUpdateType(API_KEY_ANSWER);
 
-        String text = """
-                Paste your OpenAI API Key:
-                """;
-
-        bot.execute(new SendMessage(chatId, text));
+        String message = messageSource.getMessage(PASTE_MESSAGE_PROPERTY_KEY, null, setting.getLocale());
+        bot.execute(new SendMessage(chatId, message));
     }
 }
