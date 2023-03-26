@@ -1,6 +1,18 @@
 app:
   openai:
     token:
+    defaultSettings:
+      numberOfPictures: 2
+      locale: EN
+      size: "512x512"
   telegram:
     bot:
       token:
+spring:
+  data:
+    redis:
+      database: 0
+      host:
+      port:
+      password:
+      timeout: 60000

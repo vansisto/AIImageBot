@@ -20,7 +20,9 @@ public class CommandStrategyFactory {
                                   @Qualifier("x256Command") CommandStrategy x256Command,
                                   @Qualifier("x512Command") CommandStrategy x512Command,
                                   @Qualifier("x1024Command") CommandStrategy x1024Command,
-                                  @Qualifier("settingsCommand") CommandStrategy settingsCommand) {
+                                  @Qualifier("settingsCommand") CommandStrategy settingsCommand,
+                                  @Qualifier("setAiApiKeyCommand") CommandStrategy setAiApiKeyCommand
+    ) {
         commandStrategies.put(Commands.START, startCommand);
         commandStrategies.put(Commands.HELP, helpCommand);
         commandStrategies.put(Commands.ENGLISH, englishCommand);
@@ -30,6 +32,7 @@ public class CommandStrategyFactory {
         commandStrategies.put(Commands.X_512, x512Command);
         commandStrategies.put(Commands.X_1024, x1024Command);
         commandStrategies.put(Commands.SETTINGS, settingsCommand);
+        commandStrategies.put(Commands.SET_API_KEY, setAiApiKeyCommand);
     }
 
     public CommandStrategy getCommandStrategy(Commands command) {

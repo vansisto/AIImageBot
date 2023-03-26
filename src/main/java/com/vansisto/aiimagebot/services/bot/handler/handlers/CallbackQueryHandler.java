@@ -1,28 +1,26 @@
 package com.vansisto.aiimagebot.services.bot.handler.handlers;
 
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.Update;
-import com.vansisto.aiimagebot.services.bot.command.Commands;
 import com.vansisto.aiimagebot.services.bot.command.CommandStrategy;
 import com.vansisto.aiimagebot.services.bot.command.CommandStrategyFactory;
+import com.vansisto.aiimagebot.services.bot.command.Commands;
+import com.vansisto.aiimagebot.services.bot.handler.AbstractHandler;
 import com.vansisto.aiimagebot.services.bot.handler.UpdateHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+import static com.vansisto.aiimagebot.services.UpdateUtil.getCommand;
+
 @Service
 @RequiredArgsConstructor
-public class CallbackQueryHandler implements UpdateHandler {
-    private final TelegramBot bot;
+public class CallbackQueryHandler extends AbstractHandler implements UpdateHandler {
     private final CommandStrategyFactory commandStrategyFactory;
 
     @Override
     public void handle(Update update) {
-        CallbackQuery callbackQuery = update.callbackQuery();
-        String commandName = callbackQuery.data();
-        Commands command = Commands.valueOf(commandName.toUpperCase());
+        Commands command = getCommand(update);
         CommandStrategy commandStrategy = commandStrategyFactory.getCommandStrategy(command);
         commandStrategy.execute(bot, update);
     }
