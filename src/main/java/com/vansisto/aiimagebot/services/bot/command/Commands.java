@@ -11,7 +11,8 @@ public enum Commands {
     X_1024("x_1024", "commands.menu.settings.x1024"),
     SETTINGS("settings", "commands.menu.settings"),
     SHOW_API_KEY("show_api_key", "commands.menu.settings.apiKey.show"),
-    SET_API_KEY("set_api_key", "commands.menu.settings.apiKey.set");
+    SET_API_KEY("set_api_key", "commands.menu.settings.apiKey.set"),
+    API_KEY_MENU("api_key_menu", "commands.menu.keyboards.aiApiKey");
 
     private final String value;
     private final String propertyKey;

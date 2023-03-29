@@ -21,7 +21,8 @@ public class CommandStrategyFactory {
                                   @Qualifier("x512Command") CommandStrategy x512Command,
                                   @Qualifier("x1024Command") CommandStrategy x1024Command,
                                   @Qualifier("settingsCommand") CommandStrategy settingsCommand,
-                                  @Qualifier("setAiApiKeyCommand") CommandStrategy setAiApiKeyCommand
+                                  @Qualifier("setAiApiKeyCommand") CommandStrategy setAiApiKeyCommand,
+                                  @Qualifier("apiKeyMenuCommand") CommandStrategy apiKeyMenuCommand
     ) {
         commandStrategies.put(Commands.START, startCommand);
         commandStrategies.put(Commands.HELP, helpCommand);
@@ -33,6 +34,7 @@ public class CommandStrategyFactory {
         commandStrategies.put(Commands.X_1024, x1024Command);
         commandStrategies.put(Commands.SETTINGS, settingsCommand);
         commandStrategies.put(Commands.SET_API_KEY, setAiApiKeyCommand);
+        commandStrategies.put(Commands.API_KEY_MENU, apiKeyMenuCommand);
     }
 
     public CommandStrategy getCommandStrategy(Commands command) {
