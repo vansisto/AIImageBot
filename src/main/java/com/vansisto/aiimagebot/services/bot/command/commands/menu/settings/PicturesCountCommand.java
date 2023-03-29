@@ -3,14 +3,14 @@ package com.vansisto.aiimagebot.services.bot.command.commands.menu.settings;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.vansisto.aiimagebot.services.bot.command.commands.AbstractCommand;
+import com.vansisto.aiimagebot.services.bot.command.commands.menu.AbstractSettingsCommand;
 import com.vansisto.aiimagebot.services.settings.UserSetting;
 import org.springframework.stereotype.Component;
 
 import static com.vansisto.aiimagebot.services.settings.UpdateType.PICTURES_COUNT_ANSWER;
 
 @Component
-public class PicturesCountCommand extends AbstractCommand {
+public class PicturesCountCommand extends AbstractSettingsCommand {
     private static final String PICTURES_COUNT_PROPERTY_KEY = "commands.menu.settings.picturesCountRequest";
 
     @Override
