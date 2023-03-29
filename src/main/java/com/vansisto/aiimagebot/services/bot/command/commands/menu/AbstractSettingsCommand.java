@@ -6,20 +6,16 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.vansisto.aiimagebot.services.bot.command.commands.AbstractCommand;
 import com.vansisto.aiimagebot.services.settings.UserSetting;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
-public class SettingsCommand extends AbstractCommand {
-    @Override
-    public void execute(TelegramBot bot, Update update) {
-        long chatId = getChatId(update);
-        UserSetting setting = getSetting(update);
-
+public abstract class AbstractSettingsCommand extends AbstractCommand {
+    protected void showSettingsKeyboard(TelegramBot bot, Update update, long chatId, UserSetting setting) {
         InlineKeyboardMarkup keyboard = settingsKeyboard.create(update);
         String menuMessage = settingsKeyboard.getPropertyMessage(update, setting);
         bot.execute(new SendMessage(chatId, menuMessage)
                 .replyMarkup(keyboard));
     }
+
+    protected AbstractSettingsCommand() {}
 }

@@ -3,7 +3,7 @@ package com.vansisto.aiimagebot.services.bot.command.commands.menu.settings.apik
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.vansisto.aiimagebot.services.bot.command.commands.AbstractCommand;
+import com.vansisto.aiimagebot.services.bot.command.commands.menu.AbstractSettingsCommand;
 import com.vansisto.aiimagebot.services.settings.UserSetting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import static com.vansisto.aiimagebot.services.settings.UpdateType.API_KEY_ANSWE
 
 @Component
 @RequiredArgsConstructor
-public class SetAiApiKeyCommand extends AbstractCommand {
+public class SetAiApiKeyCommand extends AbstractSettingsCommand {
 
     private static final String PASTE_MESSAGE_PROPERTY_KEY = "commands.menu.settings.apiKey.setRequest";
     @Override
