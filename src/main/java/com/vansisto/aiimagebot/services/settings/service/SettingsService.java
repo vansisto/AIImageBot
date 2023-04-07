@@ -15,4 +15,5 @@ public interface SettingsService {
     UserSetting getOrInitSetting(Update update);
     Locale getLocale(Update update);
     Set<KeySetting> getAll();
+    String getOpenAiApiKey();
 }
