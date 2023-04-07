@@ -74,4 +74,8 @@ public class UsersCache {
             existingUserSetting.setLocale(userSetting.getLocale());
         }
     }
+
+    public UserSetting getByUpdate(Update update) {
+        return getByUserId(getUserId(update));
+    }
 }

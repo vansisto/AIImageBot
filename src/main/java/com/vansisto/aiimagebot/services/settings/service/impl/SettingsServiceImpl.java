@@ -1,6 +1,7 @@
 package com.vansisto.aiimagebot.services.settings.service.impl;
 
 import com.pengrad.telegrambot.model.Update;
+import com.vansisto.aiimagebot.config.UpdateCache;
 import com.vansisto.aiimagebot.services.settings.KeySetting;
 import com.vansisto.aiimagebot.services.settings.UpdateType;
 import com.vansisto.aiimagebot.services.settings.UserSetting;
@@ -31,14 +32,16 @@ public class SettingsServiceImpl implements SettingsService {
     @Value("${app.openai.token:}")
     private String aiApiKey;
 
-    private final HashOperations<String, String, String> hashOperations;
     private static final String KEY = "KeySetting";
+    private final HashOperations<String, String, String> hashOperations;
     private final UsersCache usersCache;
+    private final UpdateCache updateCache;
 
     public SettingsServiceImpl(RedisTemplate<String, String> redisTemplate,
-                               UsersCache usersCache) {
+                               UsersCache usersCache, UpdateCache updateCache) {
         hashOperations = redisTemplate.opsForHash();
         this.usersCache = usersCache;
+        this.updateCache = updateCache;
     }
 
     @PostConstruct
@@ -66,6 +69,11 @@ public class SettingsServiceImpl implements SettingsService {
                 : map.entrySet().stream()
                     .map(entry -> new KeySetting(entry.getKey(), entry.getValue()))
                     .collect(Collectors.toSet());
+    }
+
+    @Override
+    public String getOpenAiApiKey() {
+        return usersCache.getByUpdate(updateCache.getUpdate()).getOpenAiApiKey();
     }
 
     @Override
