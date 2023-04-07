@@ -3,6 +3,7 @@ package com.vansisto.aiimagebot.services.bot.handler.handlers;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.Voice;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.vansisto.aiimagebot.exceptions.AudioFilesProcessingException;
 import com.vansisto.aiimagebot.services.bot.handler.AbstractHandler;
 import com.vansisto.aiimagebot.services.bot.handler.UpdateHandler;
 import com.vansisto.aiimagebot.services.converter.AudioConverter;
@@ -59,7 +60,7 @@ public class VoiceHandler extends AbstractHandler implements UpdateHandler {
             });
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new AudioFilesProcessingException();
         }
     }
 

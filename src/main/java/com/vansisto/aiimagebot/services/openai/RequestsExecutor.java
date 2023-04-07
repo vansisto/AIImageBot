@@ -1,5 +1,6 @@
 package com.vansisto.aiimagebot.services.openai;
 
+import com.vansisto.aiimagebot.exceptions.TranscriptionRequestException;
 import com.vansisto.aiimagebot.services.openai.requests.transcript.Transcription;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -27,8 +28,7 @@ public class RequestsExecutor {
         try(Response response = client.newCall(request).execute()) {
             return response.isSuccessful() ? response.body().string() : "Fail: " + response.message();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new TranscriptionRequestException();
         }
-        return null;
     }
 }

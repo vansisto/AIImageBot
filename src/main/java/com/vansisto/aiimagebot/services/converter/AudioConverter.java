@@ -1,5 +1,6 @@
 package com.vansisto.aiimagebot.services.converter;
 
+import com.vansisto.aiimagebot.exceptions.AudioFilesProcessingException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
@@ -32,8 +33,10 @@ public class AudioConverter {
     }
 
     private static void executeFFmpeg(File sourceOggFile, File outputFile) {
+        String ffmpegPath = System.getenv("FFMPEG_PATH");
+
         ProcessBuilder processBuilder = new ProcessBuilder(
-                "ffmpeg",
+                ffmpegPath,
                 "-i", sourceOggFile.getAbsolutePath(),
                 "-codec:a", "libmp3lame",
                 "-qscale:a", "5",
@@ -50,9 +53,8 @@ public class AudioConverter {
             int exitCode = process.waitFor();
             log.info(exitCode == 0 ? "Convert done." : "An error occurred during conversion. Code: " + exitCode);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new AudioFilesProcessingException();
         } catch (InterruptedException e) {
-            e.printStackTrace();
             Thread.currentThread().interrupt();        }
     }
 

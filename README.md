@@ -19,5 +19,6 @@ Also, you should configure the following environment variables:
 | SPRING_DATA_REDIS_HOST     | Your Redis server URL                                           | true     |
 | SPRING_DATA_REDIS_PASSWORD | Redis password                                                  | true     |
 | SPRING_DATA_REDIS_PORT     | Redis port                                                      | true     |
+| FFMPEG_PATH                | Path to your ffmpeg                                             | true     |
 
 [1]: https://www.hostinger.com/tutorials/how-to-install-ffmpeg
