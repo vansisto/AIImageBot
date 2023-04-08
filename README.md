@@ -21,4 +21,7 @@ Also, you should configure the following environment variables:
 | SPRING_DATA_REDIS_PORT     | Redis port                                                      | true     |
 | FFMPEG_PATH                | Path to your ffmpeg                                             | true     |
 
+## Application structure
+![Application Structure](./structure.png)
+
 [1]: https://www.hostinger.com/tutorials/how-to-install-ffmpeg
