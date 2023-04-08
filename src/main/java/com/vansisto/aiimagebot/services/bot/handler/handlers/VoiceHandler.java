@@ -35,14 +35,20 @@ public class VoiceHandler extends AbstractHandler implements UpdateHandler {
         long chatId = getChatId(update);
 
         try {
+            log(chatId, "Audio downloading...");
             File sourceOggFile = telegramFileDownloader.downloadVoiceFile(voice);
             File targetMp3File = new java.io.File(update.updateId() + ".mp3");
+            log(chatId, "Audio conversion...");
             CompletableFuture<File> conversionFuture = AudioConverter.convertOggToMp3(sourceOggFile, targetMp3File);
             String token = settingsService.getOpenAiApiKey();
 
             conversionFuture.thenAccept(convertedFile -> {
-                String response = RequestsExecutor.sendTranscriptionRequest(token, convertedFile);
-                bot.execute(new SendMessage(chatId, response));
+                log(chatId, "Audio transcription...");
+                String transcript = RequestsExecutor.sendTranscriptionRequest(token, convertedFile);
+                log(chatId, "Transcript: " + transcript);
+                log(chatId, "Image generating request...");
+                String response = RequestsExecutor.generateImage(transcript, settingsService.getOrInitSetting(update));
+                log(chatId, response);
 
                 try {
                     Files.delete(sourceOggFile.toPath());
@@ -62,6 +68,11 @@ public class VoiceHandler extends AbstractHandler implements UpdateHandler {
         } catch (IOException e) {
             throw new AudioFilesProcessingException();
         }
+    }
+
+    private void log(long chatId, String logMessage) {
+        log.info(logMessage);
+        bot.execute(new SendMessage(chatId, logMessage));
     }
 
     @Override

@@ -62,14 +62,14 @@ public class AudioConverter {
         try (BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             String line;
             while ((line = stdoutReader.readLine()) != null) {
-                log.info("STDOUT: " + line);
+                log.debug("STDOUT: " + line);
             }
         }
 
         try (BufferedReader stderrReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
             String line;
             while ((line = stderrReader.readLine()) != null) {
-                log.error("STDERR: " + line);
+                log.debug("STDERR: " + line);
             }
         }
     }
