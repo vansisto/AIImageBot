@@ -8,6 +8,9 @@ import okhttp3.RequestBody;
 import java.io.File;
 
 public class TranscriptionRequestUtil {
+
+    private TranscriptionRequestUtil() {}
+
     private static final MediaType MEDIA_TYPE_MP3 = MediaType.parse("audio/mp3");
 
     public static Request createRequest(String token, File file) {

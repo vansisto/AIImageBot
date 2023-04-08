@@ -7,8 +7,10 @@ import com.vansisto.aiimagebot.config.UpdateCache;
 import com.vansisto.aiimagebot.services.bot.handler.UpdateHandler;
 import com.vansisto.aiimagebot.services.bot.handler.UpdateHandlerFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyBot {
@@ -19,9 +21,13 @@ public class MyBot {
     public void run() {
         telegramBot.setUpdatesListener(updates -> {
             for (Update update : updates) {
-                updateCache.setUpdate(update);
-                UpdateHandler updateHandler = updateHandlerFactory.getFromUpdate(update);
-                updateHandler.handle(update);
+                try {
+                    updateCache.setUpdate(update);
+                    UpdateHandler updateHandler = updateHandlerFactory.getFromUpdate(update);
+                    updateHandler.handle(update);
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                }
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
